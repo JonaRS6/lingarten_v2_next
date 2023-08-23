@@ -9,6 +9,9 @@ import React, { useEffect, useLayoutEffect, useReducer, useState } from "react";
 import { getClientsTable } from "../../firebase/Firebase";
 import Client, { ClientTable } from "../../../types/Client";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faPhone } from "@fortawesome/free-solid-svg-icons";
+
 type Person = {
   firstName: string;
   lastName: string;
@@ -73,8 +76,13 @@ function ClientTable() {
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
             <td className="p-2 md:px-4 h-[68px] md:h-[52px]">
-              <span className="block mb-1 font-medium">{row.original.clientName}</span>
-              <span className="block md:hidden">{row.original.fullAddress}</span>
+              <span className="block mb-1 font-medium">
+                {row.original.clientName}
+              </span>
+              <span className="block md:hidden">
+                <FontAwesomeIcon icon={faHome} className="mr-2 text-slate-500" size="xs" />
+                {row.original.fullAddress}
+              </span>
               {
                 // si tiene teléfono, mostrarlo
                 row.original.phone && (
@@ -82,12 +90,19 @@ function ClientTable() {
                     href={`tel:${row.original.phone}`}
                     className="text-slate-500 hover:text-slate-700"
                   >
+                    <FontAwesomeIcon
+                      icon={faPhone}
+                      className="mr-2"
+                      size="xs"
+                    />
                     {row.original.phone}
                   </a>
                 )
               }
             </td>
-            <td className="hidden md:table-cell md:px-4">{row.original.fullAddress}</td>
+            <td className="hidden md:table-cell md:px-4">
+              {row.original.fullAddress}
+            </td>
             <td className="p-2 md:px-4">
               <div className="flex justify-center">
                 <StatusBadgeButton status={row.original.status} />
@@ -124,7 +139,8 @@ function StatusBadgeButton({ status }: StatusBadgeProps) {
    */
   const badgeStyles = {
     pagado: "bg-green-600 md:bg-green-200 text-green-900 border-green-900",
-    pendiente: "bg-yellow-500 md:bg-yellow-200 text-yellow-900 border-yellow-900",
+    pendiente:
+      "bg-yellow-500 md:bg-yellow-200 text-yellow-900 border-yellow-900",
     cancelado: "bg-gray-600 md:bg-gray-200 text-gray-900 border-gray-900",
     atrasado: "bg-red-600 md:bg-red-200 text-red-900 border-red-900",
   };
