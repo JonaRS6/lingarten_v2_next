@@ -63,7 +63,7 @@ function ClientTable() {
   });
 
   return (
-    <table className="bg-white items-center w-full border-collapse">
+    <table className=" bg-surface items-center w-full border-collapse">
       <thead className="text-sm">
         <tr>
           <th>Nombre</th>
