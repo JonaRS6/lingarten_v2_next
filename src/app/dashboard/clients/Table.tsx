@@ -1,25 +1,16 @@
+
+import React from "react";
 import {
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { useEffect, useLayoutEffect, useReducer, useState } from "react";
 
-import { getClientsTable } from "../../firebase/Firebase";
-import Client, { ClientTable } from "../../../types/Client";
+import { ClientTable } from "../../../../types/Client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faPhone } from "@fortawesome/free-solid-svg-icons";
 
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
 
 const columnHelper = createColumnHelper<ClientTable>();
 
@@ -47,15 +38,8 @@ const columns = [
   }),
 ];
 
-function ClientTable() {
-  const [data, setData] = useState<ClientTable[]>([]);
-  useLayoutEffect(() => {
-    const clientsTableData = getClientsTable();
-    clientsTableData.then((clients) => {
-      setData(clients);
-    });
-  }, []);
-
+function ClientTable( {data}: {data: ClientTable[]}) {
+  
   const table = useReactTable({
     data,
     columns,
@@ -63,7 +47,7 @@ function ClientTable() {
   });
 
   return (
-    <table className=" bg-surface items-center w-full border-collapse">
+    <table className="items-center w-full border-collapse">
       <thead className="text-sm">
         <tr>
           <th>Nombre</th>
