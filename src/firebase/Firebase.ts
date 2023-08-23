@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { Firestore, collection, getDocs, getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-import Client from "../../types/Client";
+import Client, { ClientTable } from "../../types/Client";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -30,5 +30,17 @@ async function getClients(db: Firestore) {
 	return clientList as Client[];
 }
 
+async function getClientsTable(){
+	const clients = await getClients(db);
+	const clientsTable = clients.map((client) => ({
+		...client,
+		clientName: `${client.name} ${client.lastname}`,
+		phone: client.tel1.toString()==="0" ? null : client.tel1.toString(),
+		fullAddress: `${client.address.street} ${client.address.no}, ${client.address.colony}`,
+		status: client.status,
+	}))
+	return clientsTable as ClientTable[];
+}
 
-export { getClients, db };
+
+export { getClientsTable };

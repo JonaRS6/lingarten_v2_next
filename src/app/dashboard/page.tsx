@@ -1,11 +1,10 @@
-"use client"
-import ClientTable from "./Table"
+
+import ClientsPage from "./clients/page"
 // The page for the dashboard
 export default function DashboardPage() {
     return (
         <div>
-            Dashboard Page
-            <ClientTable />
+            <ClientsPage />
         </div>
     )
 }
