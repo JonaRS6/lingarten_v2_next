@@ -25,4 +25,10 @@ interface Client {
 	active: boolean;
 }
 
+export interface ClientTable extends Client {
+	clientName: string;
+	phone: string;
+	fullAddress: string;
+}
+
 export default Client;
